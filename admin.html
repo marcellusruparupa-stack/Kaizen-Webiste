@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Dashboard Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.login{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;background-image:radial-gradient(var(--dot) 1.6px,transparent 1.6px);background-size:18px 18px}
+.login[hidden]{display:none}
+.login form{width:min(420px,100%);display:flex;flex-direction:column;gap:14px}
+.login h1{font-family:var(--f-display);font-weight:400;font-size:32px}
+#login-msg{min-height:1.4em;color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+<div class="login" id="login" hidden>
+  <div class="card" style="width:min(460px,100%)">
+    <h1>Masuk dashboard</h1>
+    <form id="login-form">
+      <div class="fld"><label for="email">Email</label><input type="text" id="email" name="email" autocomplete="username" inputmode="email"></div>
+      <div class="fld"><label for="password">Password</label><input type="password" id="password" name="password" autocomplete="current-password" style="width:100%;font:16px var(--f-body);color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:8px;padding:9px 11px;min-height:44px"></div>
+      <button class="pbtn go" type="submit">Masuk</button>
+    </form>
+    <p id="login-msg" role="status"></p>
+  </div>
+</div>
+<div id="site"></div>
+<div id="panel"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="site.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
