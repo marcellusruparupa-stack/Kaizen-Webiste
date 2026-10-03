@@ -211,6 +211,7 @@
       return sync('channels', state.channels.map(function (x, i) { return { id: x.id, sort: i, name: x.name, handle: x.handle, url: x.url, descr: x.desc }; }));
     }).then(function () {
       view.saving = false; view.dirty = false; renderSite(); updateBar(); toast('Tersimpan');
+      cleanImages();
     }).catch(function (e) {
       view.saving = false;
       view.msg = /row-level security|permission|JWT/i.test((e && e.message) || '') ? 'Akun ini tidak punya izin menyimpan. Pakai email pemilik yang terdaftar di schema.sql.' : 'Gagal menyimpan: ' + ((e && e.message) || 'coba lagi');
@@ -218,6 +219,22 @@
     });
   }
 
+
+  // Hapus gambar di Storage yang tidak dipakai lagi (dihapus dari situs, atau diunggah tapi batal disimpan).
+  function cleanImages() {
+    var c = KZ.client(), used = {};
+    [state.profile.photo].concat(state.projects.map(function (x) { return x.image; })).forEach(function (u) {
+      var m = /\/portfolio\/(img\/[^?#]+)/.exec(u || ''); if (m) used[decodeURIComponent(m[1])] = 1;
+    });
+    c.storage.from('portfolio').list('img', { limit: 1000 }).then(function (r) {
+      if (r.error || !r.data) return;
+      var gone = r.data.map(function (f) { return 'img/' + f.name; }).filter(function (p) { return !used[p]; });
+      if (gone.length) c.storage.from('portfolio').remove(gone);
+    });
+  }
+  window.addEventListener('beforeunload', function (e) {
+    if (view.dirty) { e.preventDefault(); e.returnValue = ''; }
+  });
 
   function showApp(user) {
     document.getElementById('login').hidden = true;
