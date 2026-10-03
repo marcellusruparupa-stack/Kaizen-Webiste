@@ -42,8 +42,8 @@ end $$;
 insert into storage.buckets (id, name, public) values ('portfolio', 'portfolio', true)
 on conflict (id) do nothing;
 
+-- Tidak ada policy baca umum: bucket public tetap bisa dibuka lewat URL, tapi daftar file tidak bisa dilihat orang lain.
 drop policy if exists "portfolio read" on storage.objects;
-create policy "portfolio read" on storage.objects for select using (bucket_id = 'portfolio');
 drop policy if exists "portfolio owner write" on storage.objects;
 create policy "portfolio owner write" on storage.objects for all
   using (bucket_id = 'portfolio' and public.is_owner())
