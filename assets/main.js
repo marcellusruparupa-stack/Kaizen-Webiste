@@ -23,7 +23,8 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
   // Scroll reveals, fire once per element
-  var targets = document.querySelectorAll('.reveal, .step, .reveal-pop, .order__glassimg');
+  var pour = document.getElementById('pour');
+  var targets = document.querySelectorAll('.reveal, .step, .reveal-pop');
   if ('IntersectionObserver' in window && !reduced) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -35,8 +36,16 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     targets.forEach(function (el) { io.observe(el); });
+    // The pour plays once, only when most of the stage is on screen, so nobody misses it
+    var pourIO = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      entries[0].target.classList.add('in');
+      pourIO.disconnect();
+    }, { threshold: 0.55 });
+    pourIO.observe(pour);
   } else {
     targets.forEach(function (el) { el.classList.add('in', 'done'); });
+    pour.classList.add('in');
   }
 
   // Nav background + parallax share one rAF-throttled scroll handler
