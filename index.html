@@ -187,13 +187,20 @@
     </div>
     <div class="order__glass">
       <img class="order__leaf" src="assets/img/daun-b.webp" alt="" width="177" height="162" loading="lazy">
-      <!-- Tutup & badan botol = satu foto yang sama, dipotong lewat clip-path; isi gelas muncul dari bawah -->
+      <!-- Satu foto botol dipakai empat lapis lewat clip-path: botol kosong, cairan, stiker, tutup -->
       <div class="pour" id="pour" role="img" aria-label="Botol Markisa Centil dituang ke gelas berisi es">
-        <span class="pour__stream"></span>
+        <svg class="pour__stream" viewBox="0 0 100 100" aria-hidden="true">
+          <path class="pour__s1" pathLength="1" d="M61 38.2C62.6 39.2 63.6 42.5 63.8 48L64 94"/>
+          <path class="pour__s2" pathLength="1" d="M60.8 38.2C62.3 39.2 63.2 42.5 63.4 48L63.6 94"/>
+        </svg>
         <svg class="pour__empty" viewBox="0 0 134 234" aria-hidden="true"><path d="M2 42 13 226q1 6 8 6h92q7 0 8-6l11-184" fill="rgba(255,255,255,.26)" stroke="#fff" stroke-width="2.4"/><ellipse cx="67" cy="42" rx="65" ry="9" fill="rgba(255,255,255,.2)" stroke="#fff" stroke-width="2.4"/></svg>
         <img class="pour__fill" src="assets/img/gelas.webp" alt="" width="268" height="468" loading="lazy">
+        <img class="pour__final" src="assets/img/gelas.webp" alt="" width="268" height="468" loading="lazy">
+        <div class="pour__surface" aria-hidden="true"><span class="pour__foam"></span><span class="pour__drop"></span><span class="pour__drop"></span><span class="pour__drop"></span></div>
         <div class="pour__bottle">
-          <img class="pour__body" src="assets/img/botol-kecil.webp" alt="" width="307" height="800" loading="lazy">
+          <img class="pour__ghost" src="assets/img/botol-kecil.webp" alt="" width="307" height="800" loading="lazy">
+          <img class="pour__liquid" src="assets/img/botol-kecil.webp" alt="" width="307" height="800" loading="lazy">
+          <img class="pour__sticker" src="assets/img/botol-kecil.webp" alt="" width="307" height="800" loading="lazy">
           <img class="pour__cap" src="assets/img/botol-kecil.webp" alt="" width="307" height="800" loading="lazy">
         </div>
       </div>
